@@ -3,6 +3,7 @@ package com.programmingpointer.rest.webservices.restful_web_services.controller;
 import com.programmingpointer.rest.webservices.restful_web_services.exception.UserNotFoundException;
 import com.programmingpointer.rest.webservices.restful_web_services.model.User;
 import com.programmingpointer.rest.webservices.restful_web_services.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,8 +34,13 @@ public class UserController {
         return user;
     }
 
+    @DeleteMapping("/users/{id}")
+    public void deleteByID(@PathVariable int id){
+        userService.deleteByID(id);
+    }
+
     @PostMapping("/users")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
         User savedUser = userService.save(user);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")

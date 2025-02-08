@@ -42,4 +42,7 @@ public class UserService {
  }
 
 
+    public void deleteByID(int id) {
+        users.removeIf(user -> user.getId().equals(id));
+    }
 }
